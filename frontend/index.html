@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TripMind AI — Multi-Agent Travel Planner. Generate personalized travel itineraries, restaurant guides, and budget breakdowns powered by collaborative AI agents.">
+  <title>TripMind AI — Multi-Agent Travel Planner</title>
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header Banner -->
+  <header class="app-header" id="appHeader">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            <circle cx="12" cy="12" r="10" stroke-width="1.5" stroke-dasharray="2 3"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">TripMind AI</h1>
+          <p class="brand-subtitle">Your Personal AI Travel Planner</p>
+        </div>
+      </div>
+      <div class="header-badge">
+        <span class="badge-dot"></span> Multi-Agent Architecture
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content" id="mainContent">
+    <!-- Intro Hero Section -->
+    <section class="hero-section" id="heroSection">
+      <h2 class="hero-heading">Plan Your Next Adventure</h2>
+      <p class="hero-description">
+        Enter your destination, budget, duration, and interests. Five specialized AI agents—Destination, Activity, Restaurant, Budget, and Itinerary—collaborate in real time to craft your personalized journey.
+      </p>
+    </section>
+
+    <!-- Planning Form Card -->
+    <section class="form-card-container">
+      <div class="trip-form-card" id="tripFormCard">
+        <form id="tripPlannerForm" novalidate>
+          <div class="form-grid">
+            <!-- Destination Input -->
+            <div class="form-group full-width">
+              <label for="destinationInput" class="form-label">
+                <span class="label-icon">📍</span> Destination <span class="required-star">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="destinationInput" 
+                name="destination" 
+                class="form-input" 
+                placeholder="e.g. Goa, Jaipur, Manali, Kerala, Varanasi..." 
+                required
+                autocomplete="off"
+                maxlength="100"
+              >
+              <span class="field-error" id="destinationError"></span>
+            </div>
+
+            <!-- Total Budget Input (INR) -->
+            <div class="form-group">
+              <label for="budgetInput" class="form-label">
+                <span class="label-icon">₹</span> Total Budget (INR) <span class="required-star">*</span>
+              </label>
+              <div class="input-prefix-wrapper">
+                <span class="input-prefix">₹</span>
+                <input 
+                  type="number" 
+                  id="budgetInput" 
+                  name="budget" 
+                  class="form-input with-prefix" 
+                  placeholder="e.g. 25000" 
+                  min="500" 
+                  max="50000000"
+                  step="500"
+                  required
+                >
+              </div>
+              <span class="field-error" id="budgetError"></span>
+            </div>
+
+            <!-- Number of Days Input -->
+            <div class="form-group">
+              <label for="daysInput" class="form-label">
+                <span class="label-icon">📅</span> Duration (Days) <span class="required-star">*</span>
+              </label>
+              <input 
+                type="number" 
+                id="daysInput" 
+                name="days" 
+                class="form-input" 
+                placeholder="e.g. 4" 
+                min="1" 
+                max="30"
+                required
+              >
+              <span class="field-error" id="daysError"></span>
+            </div>
+
+            <!-- Number of Travelers Input -->
+            <div class="form-group">
+              <label for="travelersInput" class="form-label">
+                <span class="label-icon">👥</span> Number of Travelers <span class="required-star">*</span>
+              </label>
+              <input 
+                type="number" 
+                id="travelersInput" 
+                name="travelers" 
+                class="form-input" 
+                placeholder="e.g. 2" 
+                min="1" 
+                max="50"
+                required
+              >
+              <span class="field-error" id="travelersError"></span>
+            </div>
+
+            <!-- Travel Interests (Chips) -->
+            <div class="form-group full-width">
+              <label class="form-label" id="interestsLabel">
+                <span class="label-icon">✨</span> Travel Interests <span class="required-star">*</span>
+                <span class="label-hint">(Select at least one)</span>
+              </label>
+              <div class="interest-chips" role="group" aria-labelledby="interestsLabel" id="interestChipsContainer">
+                <button type="button" class="interest-chip active" data-interest="Beaches" aria-pressed="true">
+                  <span class="chip-icon">🏖️</span> Beaches
+                </button>
+                <button type="button" class="interest-chip active" data-interest="Food" aria-pressed="true">
+                  <span class="chip-icon">🍲</span> Food
+                </button>
+                <button type="button" class="interest-chip" data-interest="Nature" aria-pressed="false">
+                  <span class="chip-icon">🌲</span> Nature
+                </button>
+                <button type="button" class="interest-chip" data-interest="History" aria-pressed="false">
+                  <span class="chip-icon">🏛️</span> History
+                </button>
+                <button type="button" class="interest-chip" data-interest="Culture" aria-pressed="false">
+                  <span class="chip-icon">🎭</span> Culture
+                </button>
+                <button type="button" class="interest-chip" data-interest="Adventure" aria-pressed="false">
+                  <span class="chip-icon">🧗</span> Adventure
+                </button>
+                <button type="button" class="interest-chip" data-interest="Shopping" aria-pressed="false">
+                  <span class="chip-icon">🛍️</span> Shopping
+                </button>
+              </div>
+              <span class="field-error" id="interestsError"></span>
+            </div>
+          </div>
+
+          <!-- Submit Button Action -->
+          <div class="form-action">
+            <button type="submit" id="generateTripBtn" class="primary-btn">
+              <span class="btn-text">Generate My Trip</span>
+              <span class="btn-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Error Alert Box -->
+    <div id="errorAlertBox" class="error-alert hidden" role="alert" aria-live="polite">
+      <div class="error-icon" aria-hidden="true">⚠️</div>
+      <div class="error-content">
+        <h3 class="error-title" id="errorTitle">Unable to Generate Trip</h3>
+        <p class="error-message" id="errorMessage"></p>
+        <div class="error-action-hint" id="errorActionHint"></div>
+      </div>
+      <button type="button" id="dismissErrorBtn" class="dismiss-btn" aria-label="Dismiss error">✕</button>
+    </div>
+
+    <!-- Agent Progress Loading State -->
+    <section id="agentProgressSection" class="agent-progress-card hidden" aria-live="polite">
+      <div class="progress-header">
+        <div class="spinner-pulse"></div>
+        <div>
+          <h3 class="progress-title">Coordinating Multi-Agent AI Workflow</h3>
+          <p class="progress-subtitle" id="agentLiveStatusText">Starting agents...</p>
+        </div>
+      </div>
+      <div class="agent-steps-pipeline" id="agentStepsPipeline">
+        <div class="pipeline-step" id="step-dest">
+          <span class="step-num">1</span>
+          <span class="step-label">Destination Agent</span>
+          <span class="step-status">Pending</span>
+        </div>
+        <div class="pipeline-step" id="step-act">
+          <span class="step-num">2</span>
+          <span class="step-label">Activity Agent</span>
+          <span class="step-status">Pending</span>
+        </div>
+        <div class="pipeline-step" id="step-rest">
+          <span class="step-num">3</span>
+          <span class="step-label">Restaurant Agent</span>
+          <span class="step-status">Pending</span>
+        </div>
+        <div class="pipeline-step" id="step-budg">
+          <span class="step-num">4</span>
+          <span class="step-label">Budget Agent</span>
+          <span class="step-status">Pending</span>
+        </div>
+        <div class="pipeline-step" id="step-itin">
+          <span class="step-num">5</span>
+          <span class="step-label">Itinerary Agent</span>
+          <span class="step-status">Pending</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Display Section -->
+    <div id="tripResultsSection" class="results-container hidden">
+      <!-- A. Trip Overview -->
+      <section class="results-card overview-card" id="tripOverviewCard">
+        <div class="overview-header">
+          <div>
+            <span class="overview-tag">Trip Plan</span>
+            <h2 class="overview-destination" id="overviewDestination">Goa</h2>
+          </div>
+          <div id="budgetStatusBadge" class="status-badge badge-green">Within Budget</div>
+        </div>
+        <div class="overview-stats-grid">
+          <div class="stat-item">
+            <span class="stat-icon">📅</span>
+            <div>
+              <span class="stat-label">Duration</span>
+              <span class="stat-value" id="overviewDays">4 Days</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">👥</span>
+            <div>
+              <span class="stat-label">Travelers</span>
+              <span class="stat-value" id="overviewTravelers">2 People</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">💼</span>
+            <div>
+              <span class="stat-label">Total Budget</span>
+              <span class="stat-value" id="overviewBudget">₹25,000</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-icon">💰</span>
+            <div>
+              <span class="stat-label">Estimated Total</span>
+              <span class="stat-value highlight" id="overviewEstimatedTotal">₹19,000</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D. Budget Breakdown (Prominently featured) -->
+      <section class="results-card budget-section" id="budgetBreakdownCard">
+        <div class="section-title-wrap">
+          <h3 class="section-title"><span class="title-icon">💳</span> Budget Breakdown</h3>
+          <span class="section-subtitle">Estimated category allocations in INR</span>
+        </div>
+
+        <!-- Over-Budget Alert Banner if applicable -->
+        <div id="overBudgetAlertBanner" class="budget-alert-banner hidden">
+          <div class="budget-alert-icon">⚠️</div>
+          <div>
+            <h4 class="budget-alert-title" id="budgetAlertTitle">Budget Alert</h4>
+            <p class="budget-alert-text" id="budgetAlertText"></p>
+            <div id="budgetAlternativesWrap" class="alternatives-box">
+              <span class="alternatives-title">Cost-Saving Recommendations:</span>
+              <ul id="budgetAlternativesList" class="alternatives-list"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="budget-categories-grid">
+          <div class="budget-cat-card">
+            <div class="cat-icon-wrap">🚗</div>
+            <div class="cat-details">
+              <span class="cat-name">Transportation</span>
+              <span class="cat-desc">Local group travel, cabs & rentals</span>
+              <span class="cat-amount" id="budgetTransportAmount">₹0</span>
+            </div>
+          </div>
+
+          <div class="budget-cat-card">
+            <div class="cat-icon-wrap">🍛</div>
+            <div class="cat-details">
+              <span class="cat-name">Food & Dining</span>
+              <span class="cat-desc">Daily meals, snacks & refreshments</span>
+              <span class="cat-amount" id="budgetFoodAmount">₹0</span>
+            </div>
+          </div>
+
+          <div class="budget-cat-card">
+            <div class="cat-icon-wrap">🎟️</div>
+            <div class="cat-details">
+              <span class="cat-name">Activities & Entry Fees</span>
+              <span class="cat-desc">Attraction tickets & group entry</span>
+              <span class="cat-amount" id="budgetActivitiesAmount">₹0</span>
+            </div>
+          </div>
+
+          <div class="budget-cat-card">
+            <div class="cat-icon-wrap">🛍️</div>
+            <div class="cat-details">
+              <span class="cat-name">Other Expenses</span>
+              <span class="cat-desc">Contingency, water, tips & souvenirs</span>
+              <span class="cat-amount" id="budgetOtherAmount">₹0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Summary Footer -->
+        <div class="budget-summary-strip">
+          <div class="summary-metric">
+            <span class="metric-label">Estimated Total:</span>
+            <span class="metric-val" id="summaryTotalCost">₹0</span>
+          </div>
+          <div class="summary-metric">
+            <span class="metric-label">Remaining Balance:</span>
+            <span class="metric-val" id="summaryRemainingBudget">₹0</span>
+          </div>
+          <div class="summary-metric">
+            <span class="metric-label">Avg Per Person:</span>
+            <span class="metric-val" id="summaryPerPerson">₹0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- E. Day-by-Day Itinerary -->
+      <section class="results-card itinerary-section" id="dayItinerarySection">
+        <div class="section-title-wrap">
+          <h3 class="section-title"><span class="title-icon">🧭</span> Day-by-Day Itinerary</h3>
+          <span class="section-subtitle">Balanced daily pacing with realistic travel and meal intervals</span>
+        </div>
+        <div class="itinerary-days-container" id="itineraryDaysContainer">
+          <!-- Dynamic Days injected by script.js -->
+        </div>
+      </section>
+
+      <!-- B. Recommended Places -->
+      <section class="results-card places-section" id="recommendedPlacesSection">
+        <div class="section-title-wrap">
+          <h3 class="section-title"><span class="title-icon">🏛️</span> Recommended Places</h3>
+          <span class="section-subtitle">Curated attractions matching your duration and interests</span>
+        </div>
+        <div class="places-grid" id="placesGridContainer">
+          <!-- Dynamic Places injected by script.js -->
+        </div>
+      </section>
+
+      <!-- C. Restaurant Recommendations -->
+      <section class="results-card restaurants-section" id="restaurantSection">
+        <div class="section-title-wrap">
+          <h3 class="section-title"><span class="title-icon">🍽️</span> Restaurant Recommendations</h3>
+          <span class="section-subtitle">Authentic eateries and regional culinary highlights</span>
+        </div>
+        <p class="price-disclaimer-note">
+          ℹ️ <strong>Note on Prices:</strong> All dining prices and entry costs are estimated averages for traveler budgeting and are not guaranteed live prices.
+        </p>
+        <div class="restaurants-grid" id="restaurantsGridContainer">
+          <!-- Dynamic Restaurants injected by script.js -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>TripMind AI — Multi-Agent Travel Planner • Powered by Google Gemini AI</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
